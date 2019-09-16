@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@redux-saga/testing-utils": "^1.0.5",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
     "@types/react": "16.9.2",
@@ -10,6 +11,7 @@
     "@types/react-helmet": "^5.0.10",
     "@types/react-redux": "^7.1.2",
     "@types/rebass": "^4.0.0",
+    "@types/redux-saga": "^0.10.5",
     "@types/shortid": "^0.0.29",
     "@types/styled-components": "^4.1.19",
     "moment": "^2.24.0",
@@ -20,6 +22,7 @@
     "react-scripts": "3.1.1",
     "rebass": "^4.0.5",
     "redux-act": "^1.7.7",
+    "redux-saga": "^1.0.5",
     "shortid": "^2.2.15",
     "styled-components": "^4.3.2",
     "typescript": "^3.5.3"

@@ -32,19 +32,28 @@ const initialState: IStateReminder = {
 				date: '2019-16-09',
 				datetime: moment('2019-16-09 9:00', 'YYYY-DD-MM HH:mm').toDate(),
 				color: '#4d4d4d'
+			},
+			{
+				text: 'Reminder 1',
+				city: 'SPS',
+				hour: 8,
+				minute: 30,
+				date: '2019-16-09',
+				datetime: moment('2019-16-09 9:00', 'YYYY-DD-MM HH:mm').toDate(),
+				color: '#1a1a1a'
 			}
 		]
 	}
 };
 
-const initialEntry = {
+export const initialReminderEntry = {
 	text: '',
 	city: '',
   hour: 0,
 	minute: 0,
 	date: moment().format(format),
 	datetime: new Date(),
-	color: ''
+	color: '#FFFFFF'
 };
 
 const reminderReducer: Reducer<IStateReminder> = (
@@ -57,7 +66,7 @@ const reminderReducer: Reducer<IStateReminder> = (
 			const reminders = [
 				...state[action.payload.date].reminders,
 				{
-					...initialEntry,
+					...initialReminderEntry,
 					...action.payload,
 					datetime: moment(`${date} ${hour}:${minute}`, `${format} HH:mm`).toDate()
 				}

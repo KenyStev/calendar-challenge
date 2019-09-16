@@ -23,6 +23,7 @@ interface IRemindersProps {
 class Reminders extends React.Component<IRemindersProps> {
 	render() {
 		const { reminders = [] } = this.props;
+
 		return(
 			<Card
 				position='absolute'
@@ -41,7 +42,7 @@ class Reminders extends React.Component<IRemindersProps> {
   					alignContent: 'flex-start'
 					}}
 				>
-					<ReminderBox
+					{/*<ReminderBox
 						px={1}
 						mx={1}
 						width={1/5}
@@ -51,7 +52,7 @@ class Reminders extends React.Component<IRemindersProps> {
 						color={invertColor('#8d8d8d', true)}
 					>
 						Reminder 0
-					</ReminderBox>
+					</ReminderBox>*/}
 
 					{
 						reminders.map(reminder =>

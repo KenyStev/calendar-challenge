@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex, Day } from '../../components';
 import { IState } from '../../reducer';
 import Reminders from '../../components/containers/Reminder/Reminders';
+import AddReminderForm from '../../components/containers/Reminder/AddReminderForm';
 import { IStateReminder, reminderSelector } from '../../components/containers/Reminder/reducers/reminderReducer';
 import { setCurrentDate } from './actions/calendarActions';
 import { connect } from 'react-redux';
@@ -42,6 +43,7 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 										key={shortid.generate()}
 										{...day}
 									>
+										<AddReminderForm date={moment(day.date).format(this.format)} />
 										<Reminders reminders={(this.props.reminders[moment(day.date).format(this.format)] || {}).reminders}/>
 									</Day>
 								)
