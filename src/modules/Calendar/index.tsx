@@ -17,6 +17,9 @@ class Calendar extends React.Component<ICalendarProps> {
 		return(
 			<Flex
 				flexDirection='column'
+				css={{
+					position: 'relative'
+				}}
 			>
 				<Header headers={calendar.headers}/>
 				<CalendarGrid

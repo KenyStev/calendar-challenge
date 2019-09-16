@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import { IState } from '../../../reducer';
+import { setCurrentDate } from '../actions/calendarActions';
 import moment from 'moment';
 
 const format = 'YYYY-DD-MM';
@@ -67,6 +68,12 @@ const calendarReducer: Reducer<IStateCalendar> = (
 	action
 ) => {
 	switch (action.type) {
+		case setCurrentDate.getType():
+			return {
+				...state,
+				currentDate: action.payload,
+				weeks: fillDates(action.payload)
+			}
 		default:
 			return state;
 	}

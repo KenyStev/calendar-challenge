@@ -10,7 +10,8 @@ const theme = {
     white:         '#ffffff',
     whitegrey:     '#f1f1f1',
     grey:          '#a6a6a6',
-    darkgrey:      '#ecf3fb'
+    darkgrey:      '#ecf3fb',
+    red:           '#b81e51'
   },
 
   space: [
