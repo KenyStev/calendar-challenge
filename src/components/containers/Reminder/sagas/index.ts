@@ -1,8 +1,8 @@
 import { fork } from 'redux-saga/effects';
-import addRemidnerSaga from './addRemidnerSaga';
+import addReminderSaga from './addReminderSaga';
 
 function* reminderSaga() {
-	yield fork(addRemidnerSaga);
+	yield fork(addReminderSaga);
 }
 
 export default reminderSaga;

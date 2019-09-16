@@ -64,7 +64,7 @@ const reminderReducer: Reducer<IStateReminder> = (
 		case addNewReminder.getType(): {
 			const {date, hour, minute} = action.payload;
 			const reminders = [
-				...state[action.payload.date].reminders,
+				...(state[action.payload.date] || {reminders: []}).reminders,
 				{
 					...initialReminderEntry,
 					...action.payload,

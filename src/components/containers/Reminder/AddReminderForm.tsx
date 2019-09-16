@@ -1,48 +1,9 @@
 import React, { useState } from 'react';
 import { initialReminderEntry } from './reducers/reminderReducer';
 import { addNewReminderRequest } from './actions/reminderActions';
-import { Flex, Box } from '../..';
+import { Flex, Box, ErrorLabel, Input, Button } from '../..';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-
-const ErrorLabel = styled.label`
-	position: absolute;
-	top: 100%;
-	left: 1em;
-	color: red;
-`;
-
-interface IInputProps {
-	p?: number | string;
-	bc?: string;
-	bg?: string;
-	height?: number | string;
-}
-
-const Input = styled.input<IInputProps>`
-	width: 100%;
-	height: ${props => props.height || '1.5em'};
-	background-color: ${props => props.bg || props.theme.colors.white};
-	padding: ${props => props.p ? props.theme.space[props.p] : '.4em'};
-	border: 2px solid ${props => props.bc || props.theme.colors.blue};
-  border-radius: 4px;
-`;
-
-const Button = styled(Input)`
-	line-height: .5em;
-	background-color: ${props => props.theme.colors.blue};
-	color: ${props => props.theme.colors.whitegrey};
-	cursor: pointer;
-
-	:hover {
-		background-color: ${props => props.theme.colors.lightblue};
-	}
-
-	:active {
-		background-color: ${props => props.theme.colors.lightblack};
-	}
-`;
 
 interface IAddReminderFormProps {
 	date: string;
@@ -73,6 +34,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 		>
 
 			<Box
+				key='input-text'
 				width={1/4}
 				mx={3}
 				css={{
@@ -108,6 +70,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				}
 			</Box>
 			<Box
+				key='input-time'
 				mx={3}
 			>
 				<Input
@@ -124,6 +87,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				/>
 			</Box>
 			<Box
+				key='input-color'
 				mx={3}
 			>
 				<Input
@@ -138,6 +102,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				/>
 			</Box>
 			<Box
+				key='input-button'
 				mx={3}
 			>
 				<Button
@@ -145,6 +110,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 					height='2.5em'
 					type='button'
 					value='Add Reminder'
+					disabled={!!formState.errors.text}
 					onClick={(event) => {
 						addNewReminderRequest(formState);
 					}}

@@ -1,12 +1,10 @@
 import React from 'react';
 import { invertColor } from '../../../utils'
-import { IState } from '../../../reducer'
-import { Flex, Card, Box } from '../..';
+import { Card, Box } from '../..';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { IReminder } from './reducers/reminderReducer';
 import shortid from 'shortid';
-
 
 interface IReminderBoxProps {
 	radius?: number;
@@ -42,21 +40,10 @@ class Reminders extends React.Component<IRemindersProps> {
   					alignContent: 'flex-start'
 					}}
 				>
-					{/*<ReminderBox
-						px={1}
-						mx={1}
-						width={1/5}
-						withEllipsis
-						bg='#8d8d8d'
-						radius={4}
-						color={invertColor('#8d8d8d', true)}
-					>
-						Reminder 0
-					</ReminderBox>*/}
-
 					{
 						reminders.map(reminder =>
 							<ReminderBox
+								key={shortid.generate()}
 								px={1}
 								mx={1}
 								width={1/5}

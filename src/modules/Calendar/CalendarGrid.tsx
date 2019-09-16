@@ -42,9 +42,16 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 										}}
 										key={shortid.generate()}
 										{...day}
+										renderChildren={(isOpen: boolean) => (
+											<>
+												{
+													isOpen &&
+													<AddReminderForm date={moment(day.date).format(this.format)} />
+												}
+												<Reminders reminders={(this.props.reminders[moment(day.date).format(this.format)] || {}).reminders}/>
+											</>
+										)}
 									>
-										<AddReminderForm date={moment(day.date).format(this.format)} />
-										<Reminders reminders={(this.props.reminders[moment(day.date).format(this.format)] || {}).reminders}/>
 									</Day>
 								)
 							}
