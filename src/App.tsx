@@ -1,28 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import store from './store';
+import { theme } from './theme';
+import { Box, Container } from './components';
+import Calendar from './modules/Calendar';
+
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <ThemeProvider theme={theme}>
+        <>
+          <Helmet>
+            <title>Calendar Challenge</title>
+
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+          </Helmet>
+          <Box>
+            <Container>
+              <Calendar />
+            </Container>
+          </Box>
+        </>
+      </ThemeProvider>
     </Provider>
   );
 }

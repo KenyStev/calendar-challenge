@@ -1,35 +1,13 @@
-import { Reducer, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import calendarReducer, { IStateCalendar } from './modules/Calendar/reducers/calendarReducer';
 
-
-interface IStateDashboard {
-	test: string;
-}
-
-const initialState: IStateDashboard = {
-	test: 'test value'
-}
-
-const testReducer: Reducer<IStateDashboard> = (
-	state = initialState,
-	action
-) => {
-	switch (action.type) {
-		case 'TEST_ACTION':
-			return {
-				...state,
-				test: 'test value 2'
-			}
-		default:
-			return state;
-	}
-}
 
 export interface IState {
-	testReducer: IStateDashboard;
+	calendar: IStateCalendar;
 };
 
 const rootReducer = combineReducers<IState>({
-	testReducer: testReducer
+	calendar: calendarReducer
 });
 
 export default rootReducer;

@@ -7,13 +7,22 @@
     "@types/node": "12.7.5",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
+    "@types/react-helmet": "^5.0.10",
     "@types/react-redux": "^7.1.2",
+    "@types/rebass": "^4.0.0",
+    "@types/shortid": "^0.0.29",
+    "@types/styled-components": "^4.1.19",
+    "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1",
     "react-redux": "^7.1.1",
     "react-scripts": "3.1.1",
+    "rebass": "^4.0.5",
     "redux-act": "^1.7.7",
-    "typescript": "3.6.3"
+    "shortid": "^2.2.15",
+    "styled-components": "^4.3.2",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
