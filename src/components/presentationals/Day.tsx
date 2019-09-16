@@ -83,6 +83,7 @@ interface IDayProps {
 	dateType: DateType;
 
 	onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+	renderChildren?: (isOpen: boolean) => React.ReactNode;
 }
 
 const Day: React.FC<IDayProps> = ({
@@ -90,7 +91,7 @@ const Day: React.FC<IDayProps> = ({
 	date,
 	dayType = 'weekday',
 	dateType = 'monthDay',
-	onClick
+	renderChildren = (isPoen) => children
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -124,7 +125,7 @@ const Day: React.FC<IDayProps> = ({
 				</CloseButton>
 			}
 
-			{isOpen && children}
+			{renderChildren(isOpen)}
 		</StyledBox>
 	)
 };

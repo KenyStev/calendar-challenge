@@ -15,26 +15,41 @@ const HeaderCell = styled(Box)`
 `;
 
 interface IHeaderProps {
+	month: string;
 	headers: Array<string>;
 }
 
 const Header: React.FC<IHeaderProps> = ({
+	month,
 	headers = []
 }) => (
-	<Flex
-		width={1}
-		key={shortid.generate()}
-	>
-		{
-			headers.map(header =>
-				<HeaderCell
-					key={shortid.generate()}
-				>
-					{header}
-				</HeaderCell>
-			)
-		}
-	</Flex>
+	<>
+		<Flex
+			p={3}
+			width={1}
+			justifyContent='center'
+			sx={{
+				color: 'blue',
+				fontSize: 5
+			}}
+		>
+			{month}
+		</Flex>
+		<Flex
+			width={1}
+			key={shortid.generate()}
+		>
+			{
+				headers.map(header =>
+					<HeaderCell
+						key={shortid.generate()}
+					>
+						{header}
+					</HeaderCell>
+				)
+			}
+		</Flex>
+	</>
 );
 
 export default Header;
