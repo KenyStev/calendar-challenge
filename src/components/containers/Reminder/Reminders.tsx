@@ -15,12 +15,13 @@ const ReminderBox = styled(Box)<IReminderBoxProps>`
 `;
 
 interface IRemindersProps {
+	isOpenDate: boolean;
 	reminders: IReminder[]
 }
 
 class Reminders extends React.Component<IRemindersProps> {
 	render() {
-		const { reminders = [] } = this.props;
+		const { isOpenDate, reminders = [] } = this.props;
 
 		return(
 			<Card
@@ -45,8 +46,10 @@ class Reminders extends React.Component<IRemindersProps> {
 							<ReminderBox
 								key={shortid.generate()}
 								px={1}
+								py={isOpenDate ? 1 : 0}
 								mx={1}
-								width={1/5}
+								my={isOpenDate ? 1 : 0}
+								width={isOpenDate ? 1 : 1/5}
 								withEllipsis
 								bg={reminder.color}
 								radius={4}

@@ -1,7 +1,7 @@
-import { take, put } from 'redux-saga/effects';
+import { take, put, call } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { addNewReminderRequest, addNewReminder } from '../actions/reminderActions';
-import addReminderSaga from '../sagas/addReminderSaga';
+import addReminderSaga, { validateReminder } from '../sagas/addReminderSaga';
 import moment from 'moment';
 
 // Mock data
@@ -26,11 +26,19 @@ describe('addReminderSaga saga', () => {
     );
   });
 
-  it('should put a new Reminder in the redux', () => {
-    const nextEffect = gen.next(addNewReminder(mockRequestObj)).value;
+  it('should call a validate Reminder function', () => {
+    const nextEffect = gen.next(mockRequestObj).value;
     
     expect(nextEffect).toEqual(
-      put(addNewReminder(mockRequestObj))
+      call(validateReminder, {})
+    );
+  });
+
+  it('should put a new Reminder in the redux', () => {
+    const nextEffect = gen.next(mockRequestObj).value;
+    
+    expect(nextEffect).toEqual(
+      put(addNewReminder({}))
     );
   });
 });
