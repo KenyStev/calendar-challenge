@@ -10,6 +10,7 @@ const HeaderCell = styled(Box)`
 	text-align: center;
 	color: ${props => props.theme.colors.whitegrey};
 	background-color: ${props => props.theme.colors.blue};
+	font-size: ${props => props.theme.fontSizes[2]}px;
 	font-weight: ${props => props.theme.fontWeights.medium};
 `;
 

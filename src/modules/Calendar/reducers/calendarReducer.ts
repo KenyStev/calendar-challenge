@@ -10,12 +10,22 @@ const startCurrentDate = moment().format(format);
 
 export interface IGridDate {
 	date: Date;
+	dayType: 'weekday' | 'weekend';
+	dateType: 'monthDay' | 'noMonthDay';
 }
 
 export interface IStateCalendar {
 	currentDate: string;
 	headers: Array<string>;
 	weeks: Array<Array<IGridDate>>;
+}
+
+function isWeekDay(date: any) {
+	return date.day() > 0 && date.day() < 6;
+}
+
+function isMonthDay(date: any, current: any) {
+	return date.month() === current.month();
 }
 
 function fillDates(date: string): Array<Array<IGridDate>> {
@@ -29,8 +39,11 @@ function fillDates(date: string): Array<Array<IGridDate>> {
 	let week: Array<IGridDate> = [];
 
 	for (let day = moment(firstDayOfGrid), i=0; day.isSameOrBefore(endDayOfGrid); day.add(1, 'days'), i++) {
+		const date = moment(day);
 		week.push({
-			date: moment(day).toDate()
+			date: date.toDate(),
+			dayType: isWeekDay(date) ? 'weekday' : 'weekend',
+			dateType: isMonthDay(date, moment(currentDate)) ? 'monthDay' : 'noMonthDay'
 		});
 
 		if (i === 6) {

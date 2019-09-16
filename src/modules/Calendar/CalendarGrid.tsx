@@ -1,7 +1,5 @@
 import React from 'react';
-import { Flex, Box } from '../../components';
-import { theme } from '../../theme';
-import moment from 'moment';
+import { Flex, Day } from '../../components';
 import shortid from 'shortid';
 
 interface ICalendarGridProps {
@@ -27,15 +25,10 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 						>
 							{
 								week.map((day: any) =>
-									<Box
-										width={1}
-										css={{
-											border: `1px solid ${theme.colors.lightblack}`
-										}}
+									<Day
 										key={shortid.generate()}
-									>
-										{moment(day.date).date()}
-									</Box>
+										{...day}
+									/>
 								)
 							}
 						</Flex> 

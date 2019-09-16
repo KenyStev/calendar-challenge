@@ -19,7 +19,8 @@ const theme = {
     toEm(12),
     toEm(24),
     toEm(56),
-    toEm(102)
+    toEm(102),
+    toEm(204)
   ],
 
   fontWeights: {
@@ -39,5 +40,8 @@ const theme = {
     72,
   ]
 };
+
+// Custome cell space
+theme.space[145] = toEm(145);
 
 export default theme;
