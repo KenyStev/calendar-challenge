@@ -39,7 +39,7 @@ const initialState: IStateReminder = {
 				hour: 8,
 				minute: 30,
 				date: '2019-16-09',
-				datetime: moment('2019-16-09 9:00', 'YYYY-DD-MM HH:mm').toDate(),
+				datetime: moment('2019-16-09 8:30', 'YYYY-DD-MM HH:mm').toDate(),
 				color: '#1a1a1a'
 			}
 		]

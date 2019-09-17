@@ -7,24 +7,29 @@ import { connect } from 'react-redux';
 
 interface IAddReminderFormProps {
 	date: string;
+	initialEntry?: any;
 
 	addNewReminderRequest: typeof addNewReminderRequest;
 }
 
 const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 	date,
+	initialEntry,
 
 	addNewReminderRequest
 }) => {
+	const editing = !!initialEntry;
 	const maxLength = 30;
-	const [formState, setFormState] = useState({
-		...initialReminderEntry,
+	const entry = {
+		...(initialEntry || initialReminderEntry),
 		date,
 		datetime: moment(date, 'YYYY-DD-MM').toDate(),
 		errors: {
 			text: ''
 		}
-	});
+	};
+	const [formState, setFormState] = useState(entry);
+	console.log(formState);
 
 	return(
 		<Flex
@@ -42,7 +47,9 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				}}
 			>
 				<Input
+					id={editing ? 'editText' : 'text'}
 					type='text'
+					name='text'
 					placeholder='Reminder Message...'
 					value={formState.text}
 					onChange={(event) => {
@@ -74,7 +81,9 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				mx={3}
 			>
 				<Input
+					id={editing ? 'editTime' : 'time'}
 					type='time'
+					name='time'
 					onChange={(event) => {
 						const [hour, minute] = event.target.value.split(':').map((a: string) => parseInt(a, 10));
 
@@ -91,7 +100,9 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 				mx={3}
 			>
 				<Input
+					id={editing ? 'editColor' : 'color'}
 					type='color'
+					name='color'
 					value={formState.color}
 					onChange={(event) => {
 						setFormState({
@@ -109,6 +120,7 @@ const AddReminderForm: React.FC<IAddReminderFormProps> = ({
 					p={2}
 					height='2.5em'
 					type='button'
+					name='botton'
 					value='Add Reminder'
 					disabled={!!formState.errors.text}
 					onClick={(event) => {

@@ -46,7 +46,9 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 											<>
 												{
 													isOpen &&
-													<AddReminderForm date={moment(day.date).format(this.format)} />
+													<AddReminderForm
+														date={moment(day.date).format(this.format)}
+													/>
 												}
 												<Reminders
 													isOpenDate={isOpen}

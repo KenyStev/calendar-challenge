@@ -13,6 +13,7 @@ interface IInputProps {
 	bg?: string;
 	height?: number | string;
 	disabled?: boolean;
+	name: string;
 }
 
 export const Input = styled.input<IInputProps>`

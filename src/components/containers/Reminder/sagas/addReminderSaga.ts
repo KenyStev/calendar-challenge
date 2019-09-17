@@ -1,7 +1,7 @@
 import { take, put, call } from 'redux-saga/effects';
 import { addNewReminder, addNewReminderRequest } from '../actions/reminderActions';
 
-export function* validateReminder(object: any): any {
+export function validateReminder(object: any): any {
 	const validObject = { ...object };
 
 	if (validObject.text.length > 30) {

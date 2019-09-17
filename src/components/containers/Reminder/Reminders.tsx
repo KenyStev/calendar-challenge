@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { invertColor } from '../../../utils'
 import { Card, Box } from '../..';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { IReminder } from './reducers/reminderReducer';
+import { IReminder, initialReminderEntry } from './reducers/reminderReducer';
+import AddReminderForm from './AddReminderForm';
 import shortid from 'shortid';
 
 interface IReminderBoxProps {
@@ -12,6 +13,7 @@ interface IReminderBoxProps {
 
 const ReminderBox = styled(Box)<IReminderBoxProps>`
 	border-radius: ${props => props.radius || 0}px;
+	cursor: pointer;
 `;
 
 interface IRemindersProps {
@@ -19,9 +21,18 @@ interface IRemindersProps {
 	reminders: IReminder[]
 }
 
-class Reminders extends React.Component<IRemindersProps> {
+interface IRemindersState {
+	editingReminder: any;
+}
+
+class Reminders extends React.Component<IRemindersProps, IRemindersState> {
+	state = {
+		editingReminder: { ...initialReminderEntry, index: -1 }
+	}
+
 	render() {
 		const { isOpenDate, reminders = [] } = this.props;
+		const { editingReminder } = this.state;
 
 		return(
 			<Card
@@ -36,13 +47,14 @@ class Reminders extends React.Component<IRemindersProps> {
 				<Box
 					height='100%'
 					css={{
+						position: 'relative',
 						display: 'flex',
 						flexWrap: 'wrap',
   					alignContent: 'flex-start'
 					}}
 				>
 					{
-						reminders.map(reminder =>
+						reminders.map((reminder, index: number) =>
 							<ReminderBox
 								key={shortid.generate()}
 								px={1}
@@ -54,8 +66,36 @@ class Reminders extends React.Component<IRemindersProps> {
 								bg={reminder.color}
 								radius={4}
 								color={invertColor(reminder.color, true)}
+								onClick={() => {
+									this.setState({
+										editingReminder: {
+											index,
+											...reminder
+										}
+									})
+								}}
 							>
 								{reminder.text}
+
+								<Box
+									css={{
+										display: 'inline-block',
+										position: isOpenDate ? 'absolute' : 'relative',
+										right: '1em'
+									}}
+								>
+									{`${reminder.hour}:${reminder.minute}`}
+								</Box>
+
+								{
+									editingReminder.index === index &&
+									<Box>
+										<AddReminderForm
+											date={editingReminder.date}
+											initialEntry={editingReminder}
+										/>
+									</Box>
+								}
 							</ReminderBox>
 						)
 					}
