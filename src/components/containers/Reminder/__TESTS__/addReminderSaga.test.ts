@@ -20,7 +20,7 @@ const gen = cloneableGenerator(addReminderSaga)();
 
 describe('addReminderSaga saga', () => {
   it('should take a request action', () => {
-    const nextEffect = gen.next().value;
+    const nextEffect = gen.next(mockRequestObj).value;
     
     expect(nextEffect).toEqual(
       take(addNewReminderRequest.getType())
@@ -28,10 +28,10 @@ describe('addReminderSaga saga', () => {
   });
 
   it('should call a validate Reminder function', () => {
-    const nextEffect = gen.next(mockRequestObj).value;
+    const nextEffect = gen.next(addNewReminderRequest(mockRequestObj)).value;
     
     expect(nextEffect).toEqual(
-      call(validateReminder, {})
+      call(validateReminder, mockRequestObj)
     );
   });
 
@@ -39,7 +39,7 @@ describe('addReminderSaga saga', () => {
     const nextEffect = gen.next(mockRequestObj).value;
     
     expect(nextEffect).toEqual(
-      put(addNewReminder({}))
+      put(addNewReminder(mockRequestObj))
     );
   });
 });
