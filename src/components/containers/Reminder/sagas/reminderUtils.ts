@@ -22,12 +22,12 @@ export function validateReminder(object: any): any {
 		}
 	}
 
-	// if (!validObject.city) {
-	// 	return {
-	// 		invalid: true,
-	// 		error: 'city needed'
-	// 	}
-	// }
+	if (!validObject.city) {
+		return {
+			invalid: true,
+			error: 'city needed'
+		}
+	}
 
 	delete validObject.errors;
 	return validObject;

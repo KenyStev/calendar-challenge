@@ -23,6 +23,13 @@ export const Input = styled.input<IInputProps>`
 	padding: ${props => props.p ? props.theme.space[props.p] : '.4em'};
 	border: 2px solid ${props => props.bc || props.theme.colors.blue};
   border-radius: 4px;
+
+  ${props => props.name === 'color' && `
+		box-sizing: border-box;
+  	width: 2em;
+    height: 2.4em;
+    padding: .2em;
+  `}
 `;
 
 export const Button = styled(Input)`

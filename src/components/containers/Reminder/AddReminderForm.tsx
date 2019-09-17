@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IReminder, initialReminderEntry } from './reducers/reminderReducer';
 import { addNewReminderRequest, editReminderRequest } from './actions/reminderActions';
-import { Flex, Box, ErrorLabel, Input, Button } from '../..';
+import { Flex, Box, ErrorLabel, Input, Button, CityBox } from '../..';
+import { GoogleComponent } from 'react-google-location';
 import { padZero } from '../../../utils';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import shortid from 'shortid';
+
+const API_KEY =  'AIzaSyCyRRN7DdNIVULhOXrFv7Du894M1Yxq6WU';
 
 interface IAddReminderFormProps {
 	date: string;
@@ -15,9 +17,20 @@ interface IAddReminderFormProps {
 	editReminderRequest: typeof editReminderRequest;
 }
 
+interface IPosition {
+	lat: number;
+	lng: number;
+}
+
+interface IPlace {
+	place: string;
+	coordinates?: IPosition;
+}
+
 interface IAddReminderFormState {
 	reminderEntry: IReminder;
 	errors: any;
+	location?: IPlace;
 }
 
 class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminderFormState> {
@@ -46,7 +59,7 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 			date,
 			initialEntry
 		} = this.props;
-		const { reminderEntry, errors } = this.state;
+		const { reminderEntry, location, errors } = this.state;
 		const editing = !!initialEntry;
 
 		return(
@@ -54,8 +67,23 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 				p='1.5em'
 				justifyContent='center'
 				alignItems='center'
+				css={{
+					maxHeight: '4.5em'
+				}}
 			>
-
+				<CityBox
+					width={1/4}
+					mx={3}
+				>
+					<GoogleComponent
+	          apiKey={API_KEY}
+	          language={'en'}
+	          country={'country:in|country:us'}
+	          coordinates={true}
+	          placeholder={'Start typing location'}
+	          onChange={(e: any) => { this.setState({ location: e }) }}
+	        />
+				</CityBox>
 				<Box
 					width={1/4}
 					mx={3}
@@ -121,6 +149,7 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 					<Input
 						type='color'
 						name='color'
+						height='100%'
 						value={reminderEntry.color}
 						onChange={(event) => {
 							this.setState({
@@ -145,10 +174,10 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 						disabled={!!errors.text}
 						onClick={(event) => {
 							if (editing) {
-								this.props.editReminderRequest(reminderEntry);
+								this.props.editReminderRequest(location ? {...reminderEntry, city: location.place} : reminderEntry);
 								return;
 							}
-							this.props.addNewReminderRequest(reminderEntry);
+							this.props.addNewReminderRequest(location ? {...reminderEntry, city: location.place} : reminderEntry);
 						}}
 					/>
 				</Box>

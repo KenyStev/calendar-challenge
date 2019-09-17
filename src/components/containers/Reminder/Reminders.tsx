@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { invertColor, padZero } from '../../../utils'
 import { Card, Box } from '../..';
 import styled from 'styled-components';
@@ -89,6 +89,9 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 								bg={reminder.color}
 								radius={4}
 								color={invertColor(reminder.color, true)}
+								css={{
+									overflow: isOpenDate ? 'visible' : 'hidden'
+								}}
 								onClick={() => {
 									if (this.state.editingReminder.index !== index) {
 										this.setState({
@@ -101,6 +104,15 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 								}}
 							>
 								{reminder.text}
+
+								<Box
+									px={4}
+									css={{
+										display: 'inline-block'
+									}}
+								>
+									| {`${reminder.city}`} |
+								</Box>
 
 								<Box
 									css={{
