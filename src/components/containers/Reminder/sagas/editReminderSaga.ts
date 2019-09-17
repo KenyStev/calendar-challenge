@@ -1,5 +1,6 @@
 import { take, put, call } from 'redux-saga/effects';
 import { editReminderRequest, editReminder } from '../actions/reminderActions';
+import { validateReminder } from './reminderUtils';
 
 function* editReminderSaga() {
 	while(true) {
@@ -11,13 +12,11 @@ function* editReminderSaga() {
 
 		console.log(newReminder);
 		
-		// const validReminder = yield call(validateReminder, newReminder);
+		const validReminder = yield call(validateReminder, newReminder);
 
-		// if (!validReminder.invalid) {
-		// 	yield put(addNewReminder(newReminder));
-		// }
-		yield put(editReminder(newReminder));
-
+		if (!validReminder.invalid) {
+			yield put(editReminder(newReminder));
+		}
 	}
 }
 

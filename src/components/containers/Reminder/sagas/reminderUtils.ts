@@ -8,14 +8,14 @@ export function validateReminder(object: any): any {
 		}
 	}
 
-	if (!validObject.hour) {
+	if (validObject.hour === undefined) {
 		return {
 			invalid: true,
 			error: 'hour needed'
 		}
 	}
 
-	if (!validObject.minute) {
+	if (validObject.minute === undefined) {
 		return {
 			invalid: true,
 			error: 'minute needed'

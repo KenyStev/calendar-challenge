@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IReminder, initialReminderEntry } from './reducers/reminderReducer';
 import { addNewReminderRequest, editReminderRequest } from './actions/reminderActions';
 import { Flex, Box, ErrorLabel, Input, Button } from '../..';
+import { padZero } from '../../../utils';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
@@ -99,6 +100,7 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 					<Input
 						type='time'
 						name='time'
+						value={`${padZero(`${reminderEntry.hour}`)}:${padZero(`${reminderEntry.minute}`)}`}
 						onChange={(event) => {
 							const [hour, minute] = event.target.value.split(':').map((a: string) => parseInt(a, 10));
 

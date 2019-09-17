@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { invertColor } from '../../../utils'
+import { invertColor, padZero } from '../../../utils'
 import { Card, Box } from '../..';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -109,7 +109,7 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 										right: '1em'
 									}}
 								>
-									{`${reminder.hour}:${reminder.minute}`}
+									{`${padZero(`${reminder.hour}`)}:${padZero(`${reminder.minute}`)}`}
 								</Box>
 
 								{
