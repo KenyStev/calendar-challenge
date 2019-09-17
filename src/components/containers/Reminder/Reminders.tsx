@@ -30,6 +30,29 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 		editingReminder: { ...initialReminderEntry, index: -1 }
 	}
 
+	shouldComponentUpdate(nextProps: IRemindersProps, nextState: IRemindersState) {
+		if (this.props.isOpenDate !== nextProps.isOpenDate) {
+			return true;
+		}
+
+		if (this.state.editingReminder.index !== nextState.editingReminder.index) {
+			return true;
+		}
+
+		return false;
+	}
+
+	componentDidUpdate() {
+		const { isOpenDate } = this.props;
+		const { editingReminder } = this.state;
+
+		if (!isOpenDate && editingReminder.index !== -1) {
+			this.setState({
+				editingReminder: { ...initialReminderEntry, index: -1 }
+			});
+		}
+	}
+
 	render() {
 		const { isOpenDate, reminders = [] } = this.props;
 		const { editingReminder } = this.state;
@@ -67,12 +90,14 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 								radius={4}
 								color={invertColor(reminder.color, true)}
 								onClick={() => {
-									this.setState({
-										editingReminder: {
-											index,
-											...reminder
-										}
-									})
+									if (this.state.editingReminder.index !== index) {
+										this.setState({
+											editingReminder: {
+												index,
+												...reminder
+											}
+										})
+									}
 								}}
 							>
 								{reminder.text}
@@ -91,6 +116,7 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 									editingReminder.index === index &&
 									<Box>
 										<AddReminderForm
+											key={shortid.generate()}
 											date={editingReminder.date}
 											initialEntry={editingReminder}
 										/>

@@ -1,7 +1,8 @@
 import { take, put, call } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { addNewReminderRequest, addNewReminder } from '../actions/reminderActions';
-import addReminderSaga, { validateReminder } from '../sagas/addReminderSaga';
+import addReminderSaga from '../sagas/addReminderSaga';
+import { validateReminder } from '../sagas/reminderUtils';
 import moment from 'moment';
 
 // Mock data

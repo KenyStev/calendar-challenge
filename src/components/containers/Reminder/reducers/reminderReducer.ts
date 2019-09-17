@@ -1,12 +1,13 @@
 import { Reducer } from 'redux';
 import { IState } from '../../../../reducer';
-import { addNewReminder } from '../actions/reminderActions';
+import { addNewReminder, editReminder } from '../actions/reminderActions';
 import moment from 'moment';
 
 const format = 'YYYY-DD-MM';
 
 export interface IReminder {
-	text?: string;
+	index?: number;
+	text: string;
 	city?: string;
 	hour: number;
 	minute: number;
@@ -71,6 +72,33 @@ const reminderReducer: Reducer<IStateReminder> = (
 					datetime: moment(`${date} ${hour}:${minute}`, `${format} HH:mm`).toDate()
 				}
 			];
+			reminders.sort((a, b) => {
+				const dateA = new Date(a.datetime);
+        const dateB = new Date(b.datetime);
+
+        return dateA.valueOf() - dateB.valueOf();
+			})
+
+			return {
+				...state,
+				[action.payload.date]: {
+					reminders
+				}
+			}
+		}
+		case editReminder.getType(): {
+			const {date, hour, minute, index} = action.payload;
+			const editedEntry = {...action.payload};
+			delete editedEntry.index;
+
+			const reminders = [
+				...(state[action.payload.date] || {reminders: []}).reminders
+			];
+			reminders[index] = {
+				...editedEntry,
+				datetime: moment(`${date} ${hour}:${minute}`, `${format} HH:mm`).toDate()
+			};
+
 			reminders.sort((a, b) => {
 				const dateA = new Date(a.datetime);
         const dateB = new Date(b.datetime);
