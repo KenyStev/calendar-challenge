@@ -11,13 +11,14 @@ interface IInputProps {
 	p?: number | string;
 	bc?: string;
 	bg?: string;
+	width?: number | string;
 	height?: number | string;
 	disabled?: boolean;
 	name: string;
 }
 
 export const Input = styled.input<IInputProps>`
-	width: 100%;
+	width: ${props => props.width || '100%'};
 	height: ${props => props.height || '1.5em'};
 	background-color: ${props => props.bg || props.theme.colors.white};
 	padding: ${props => props.p ? props.theme.space[props.p] : '.4em'};

@@ -1,6 +1,7 @@
 import React from 'react';
 import Flex from './Flex';
 import Box from './Box';
+import {Button} from './Fields';
 import shortid from 'shortid';
 import styled from 'styled-components';
 
@@ -17,23 +18,50 @@ const HeaderCell = styled(Box)`
 interface IHeaderProps {
 	month: string;
 	headers: Array<string>;
+	changeMonth?: (offset: number) => void;
 }
 
 const Header: React.FC<IHeaderProps> = ({
 	month,
-	headers = []
+	headers = [],
+	changeMonth
 }) => (
 	<>
 		<Flex
 			p={3}
 			width={1}
-			justifyContent='center'
+			justifyContent='space-between'
 			sx={{
 				color: 'blue',
 				fontSize: 5
 			}}
 		>
+			<Flex
+				width={1/3}
+				alignItems='center'
+			>
+				<Button
+					type='button'
+					name='Previous'
+					width='auto'
+					value='Previous'
+					onClick={() => changeMonth && changeMonth(-1)}
+				/>
+			</Flex>
 			{month}
+			<Flex
+				width={1/3}
+				justifyContent='flex-end'
+				alignItems='center'
+			>
+				<Button
+					type='button'
+					name='Next'
+					width='auto'
+					value='Next'
+					onClick={() => changeMonth && changeMonth(1)}
+				/>
+			</Flex>
 		</Flex>
 		<Flex
 			width={1}

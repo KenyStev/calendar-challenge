@@ -3,14 +3,22 @@ import { Flex, Header } from '../../components';
 import { connect } from 'react-redux';
 import { IState } from '../../reducer'
 import { IStateCalendar, calendarSelector } from './reducers/calendarReducer';
+import { setCurrentDate } from './actions/calendarActions';
 import CalendarGrid from './CalendarGrid';
 import moment from 'moment';
 
 interface ICalendarProps {
-	calendar: IStateCalendar
+	calendar: IStateCalendar,
+
+	setCurrentDate: typeof setCurrentDate;
 }
 
-class Calendar extends React.Component<ICalendarProps> {
+interface ICalendarState {
+	format: string;
+}
+
+class Calendar extends React.Component<ICalendarProps, ICalendarState> {
+	format = 'YYYY-DD-MM'
 
 	render() {
 		const { calendar } = this.props;
@@ -25,6 +33,9 @@ class Calendar extends React.Component<ICalendarProps> {
 				<Header
 					month={moment(calendar.currentDate, 'YYYY-DD-MM').format('MMMM')}
 					headers={calendar.headers}
+					changeMonth={(offset: number) => {
+						this.props.setCurrentDate(moment(calendar.currentDate, this.format).add(offset, 'months').format(this.format));
+					}}
 				/>
 				<Flex
 					flexDirection='column'
@@ -46,4 +57,8 @@ const mapStateToProps = (state: IState) => ({
 	calendar: calendarSelector(state)
 });
 
-export default connect(mapStateToProps)(Calendar);
+const mapDispatchToProps = {
+	setCurrentDate
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
