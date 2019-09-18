@@ -4,10 +4,9 @@ import { addNewReminderRequest, editReminderRequest } from './actions/reminderAc
 import { Flex, Box, ErrorLabel, Input, Button, CityBox } from '../..';
 import { GoogleComponent } from 'react-google-location';
 import { padZero } from '../../../utils';
+import { API_KEY } from '../../../utils/constants';
 import moment from 'moment';
 import { connect } from 'react-redux';
-
-const API_KEY =  'AIzaSyCyRRN7DdNIVULhOXrFv7Du894M1Yxq6WU';
 
 interface IAddReminderFormProps {
 	date: string;
