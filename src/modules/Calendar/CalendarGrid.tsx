@@ -5,16 +5,18 @@ import Reminders from '../../components/containers/Reminder/Reminders';
 import AddReminderForm from '../../components/containers/Reminder/AddReminderForm';
 import { IStateReminder, reminderSelector } from '../../components/containers/Reminder/reducers/reminderReducer';
 import { setCurrentDate } from './actions/calendarActions';
+import { deleteReminder, deleteAllReminder } from '../../components/containers/Reminder/actions/reminderActions';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 import moment from 'moment';
 
 interface ICalendarGridProps {
-	date: string;
 	weeks: any;
 
 	reminders: IStateReminder,
 	setCurrentDate: typeof setCurrentDate;
+	deleteReminder: typeof deleteReminder;
+	deleteAllReminder: typeof deleteAllReminder;
 }
 
 class CalendarGrid extends React.Component<ICalendarGridProps> {
@@ -54,10 +56,10 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 													isOpenDate={isOpen}
 													reminders={(this.props.reminders[moment(day.date).format(this.format)] || {}).reminders}
 													deleteAll={() => {
-														console.log('delete all');
+														this.props.deleteAllReminder(moment(day.date).format(this.format));
 													}}
 													deleteReminder={(index: number) => {
-														console.log('delete reminder: ', index);
+														this.props.deleteReminder({index, date: moment(day.date).format(this.format)});
 													}}
 												/>
 											</>
@@ -79,7 +81,9 @@ const mapStateToProps = (state: IState) => ({
 })
 
 const mapDispatchToProps = {
-	setCurrentDate
+	setCurrentDate,
+	deleteReminder,
+	deleteAllReminder
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarGrid);

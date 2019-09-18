@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { IState } from '../../../../reducer';
-import { addNewReminder, editReminder } from '../actions/reminderActions';
+import { addNewReminder, editReminder, deleteReminder, deleteAllReminder } from '../actions/reminderActions';
 import moment from 'moment';
 
 const format = 'YYYY-DD-MM';
@@ -92,7 +92,7 @@ const reminderReducer: Reducer<IStateReminder> = (
 			delete editedEntry.index;
 
 			const reminders = [
-				...(state[action.payload.date] || {reminders: []}).reminders
+				...state[action.payload.date].reminders
 			];
 			reminders[index] = {
 				...editedEntry,
@@ -110,6 +110,38 @@ const reminderReducer: Reducer<IStateReminder> = (
 				...state,
 				[action.payload.date]: {
 					reminders
+				}
+			}
+		}
+		case deleteReminder.getType(): {
+			const {date, index} = action.payload;
+			
+			const reminders = [
+				...state[date].reminders
+			];
+			reminders.splice(index, 1);
+
+			reminders.sort((a, b) => {
+				const dateA = new Date(a.datetime);
+        const dateB = new Date(b.datetime);
+
+        return dateA.valueOf() - dateB.valueOf();
+			})
+
+			return {
+				...state,
+				[date]: {
+					reminders
+				}
+			}
+		}
+		case deleteAllReminder.getType(): {
+			const date = action.payload;
+
+			return {
+				...state,
+				[date]: {
+					reminders: []
 				}
 			}
 		}

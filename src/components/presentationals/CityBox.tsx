@@ -14,6 +14,7 @@ export const CityBox = styled(Box)`
 
 	.google-covert {
 		position: absolute;
+		z-index: 99;
 
 		.style-list,
 		.style-unordered-list {

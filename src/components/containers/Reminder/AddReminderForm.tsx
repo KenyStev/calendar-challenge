@@ -56,7 +56,6 @@ class AddReminderForm extends React.Component<IAddReminderFormProps, IAddReminde
 
 	render() {
 		const {
-			date,
 			initialEntry
 		} = this.props;
 		const { reminderEntry, location, errors } = this.state;

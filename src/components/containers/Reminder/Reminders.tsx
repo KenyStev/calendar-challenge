@@ -17,6 +17,7 @@ const RemindersContainer = styled(Box)`
 
 	&::-webkit-scrollbar {
 		display: none;
+		-webkit-appearance: none;
   }
 `;
 

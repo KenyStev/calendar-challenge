@@ -44,7 +44,6 @@ class Calendar extends React.Component<ICalendarProps, ICalendarState> {
 					}}
 				>
 					<CalendarGrid
-						date={calendar.currentDate}
 						weeks={calendar.weeks}
 					/>
 				</Flex>
