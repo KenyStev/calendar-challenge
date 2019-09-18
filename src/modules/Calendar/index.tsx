@@ -31,7 +31,7 @@ class Calendar extends React.Component<ICalendarProps, ICalendarState> {
 				}}
 			>
 				<Header
-					month={moment(calendar.currentDate, 'YYYY-DD-MM').format('MMMM')}
+					month={moment(calendar.currentDate, 'YYYY-DD-MM').format('MMMM | YYYY')}
 					headers={calendar.headers}
 					changeMonth={(offset: number) => {
 						this.props.setCurrentDate(moment(calendar.currentDate, this.format).add(offset, 'months').format(this.format));

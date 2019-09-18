@@ -1,11 +1,24 @@
 import React from 'react';
 import { invertColor, padZero } from '../../../utils'
-import { Card, Box } from '../..';
+import { Card, Box, CloseButton } from '../..';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { IReminder, initialReminderEntry } from './reducers/reminderReducer';
 import AddReminderForm from './AddReminderForm';
 import shortid from 'shortid';
+
+const RemindersContainer = styled(Box)`
+	height: 80%;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+  }
+`;
 
 interface IReminderBoxProps {
 	radius?: number;
@@ -18,7 +31,10 @@ const ReminderBox = styled(Box)<IReminderBoxProps>`
 
 interface IRemindersProps {
 	isOpenDate: boolean;
-	reminders: IReminder[]
+	reminders: IReminder[],
+
+	deleteAll: () => void;
+	deleteReminder: (index: number) => void;
 }
 
 interface IRemindersState {
@@ -67,15 +83,24 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 					overflow: 'hidden'
 				}}
 			>
+			{
+				isOpenDate &&
 				<Box
-					height='100%'
 					css={{
 						position: 'relative',
-						display: 'flex',
-						flexWrap: 'wrap',
-  					alignContent: 'flex-start'
+						height: '3em'
 					}}
 				>
+					<CloseButton
+						onClick={() => {
+							this.props.deleteAll();
+						}}
+					>
+						Delete All
+					</CloseButton>
+				</Box>
+			}
+				<RemindersContainer>
 					{
 						reminders.map((reminder, index: number) =>
 							<ReminderBox
@@ -90,10 +115,11 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 								radius={4}
 								color={invertColor(reminder.color, true)}
 								css={{
+									position: 'relative',
 									overflow: isOpenDate ? 'visible' : 'hidden'
 								}}
 								onClick={() => {
-									if (this.state.editingReminder.index !== index) {
+									if (isOpenDate && this.state.editingReminder.index !== index) {
 										this.setState({
 											editingReminder: {
 												index,
@@ -118,11 +144,22 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 									css={{
 										display: 'inline-block',
 										position: isOpenDate ? 'absolute' : 'relative',
-										right: '1em'
+										right: '5em'
 									}}
 								>
 									{`${padZero(`${reminder.hour}`)}:${padZero(`${reminder.minute}`)}`}
 								</Box>
+
+								{
+									editingReminder.index === index &&
+									<CloseButton
+										onClick={() => {
+											this.props.deleteReminder(editingReminder.index);
+										}}
+									>
+										X
+									</CloseButton>
+								}
 
 								{
 									editingReminder.index === index &&
@@ -137,8 +174,7 @@ class Reminders extends React.Component<IRemindersProps, IRemindersState> {
 							</ReminderBox>
 						)
 					}
-
-				</Box>
+				</RemindersContainer>
 			</Card>
 		)
 	}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Box from './Box';
+import CloseButton from './CloseButton';
 import styled  from 'styled-components';
 import moment from 'moment';
 
@@ -65,16 +66,6 @@ const DateNumber = styled(Box)<IDateProps>`
 		top: 1em;
 		left: 1em;
 	`}
-`;
-
-const CloseButton = styled(Box)`
-	position: absolute;
-	top: 1em;
-	right: 1.5em;
-	font-size: ${props => props.theme.fontSizes[3]}px;
-	font-weight: ${props => props.theme.fontWeights.medium};
-	color: ${props => props.theme.colors.red};
-	cursor: pointer;
 `;
 
 interface IDayProps {

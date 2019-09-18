@@ -53,6 +53,12 @@ class CalendarGrid extends React.Component<ICalendarGridProps> {
 												<Reminders
 													isOpenDate={isOpen}
 													reminders={(this.props.reminders[moment(day.date).format(this.format)] || {}).reminders}
+													deleteAll={() => {
+														console.log('delete all');
+													}}
+													deleteReminder={(index: number) => {
+														console.log('delete reminder: ', index);
+													}}
 												/>
 											</>
 										)}
