@@ -15,9 +15,11 @@ const RemindersContainer = styled(Box)`
 	align-content: flex-start;
 	overflow-y: scroll;
 
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+
 	&::-webkit-scrollbar {
 		display: none;
-		-webkit-appearance: none;
   }
 `;
 

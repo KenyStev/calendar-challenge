@@ -22,28 +22,30 @@ export interface IStateReminder {
 	}
 }
 
+const remindersEntry = [
+	{
+		text: 'Reminder 0',
+		city: 'SPS',
+		hour: 9,
+		minute: 0,
+		date: '2019-16-09',
+		datetime: moment('2019-16-09 9:00', 'YYYY-DD-MM HH:mm').toDate(),
+		color: '#4d4d4d'
+	},
+	{
+		text: 'Reminder 1',
+		city: 'SPS',
+		hour: 8,
+		minute: 30,
+		date: '2019-16-09',
+		datetime: moment('2019-16-09 8:30', 'YYYY-DD-MM HH:mm').toDate(),
+		color: '#1a1a1a'
+	}
+];
+
 const initialState: IStateReminder = {
 	'2019-16-09': {
-		reminders: [
-			{
-				text: 'Reminder 0',
-				city: 'SPS',
-				hour: 9,
-				minute: 0,
-				date: '2019-16-09',
-				datetime: moment('2019-16-09 9:00', 'YYYY-DD-MM HH:mm').toDate(),
-				color: '#4d4d4d'
-			},
-			{
-				text: 'Reminder 1',
-				city: 'SPS',
-				hour: 8,
-				minute: 30,
-				date: '2019-16-09',
-				datetime: moment('2019-16-09 8:30', 'YYYY-DD-MM HH:mm').toDate(),
-				color: '#1a1a1a'
-			}
-		]
+		reminders: []
 	}
 };
 
